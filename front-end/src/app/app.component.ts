@@ -31,35 +31,55 @@ export class AppComponent {
     walletAddress: string | undefined
     provider: ethers.providers.Web3Provider | undefined
 
-    constructor(private http: HttpClient) {
+    LOTTERY_ADDRESS: string | undefined
+    PAYMENT_TOKEN_ADDRESS: string | undefined
 
-      /* Connection to metamask (Currently the only option)*/
+    etherBalance: number | undefined
+
+    constructor(private http: HttpClient) {
+        /* Connection to metamask (Currently the only option)*/
         if (typeof window.ethereum !== "undefined") {
             try {
                 let accounts: ethers.providers.JsonRpcSigner[]
+
                 window.ethereum
                     .request({ method: "eth_requestAccounts" })
-                    .then(() => {
-                        window.ethereum
-                            .request({ method: "eth_accounts" })
-                            .then((ans: ethers.providers.JsonRpcSigner[]) => {
-                                accounts = ans
-                                this.wallet = accounts[0]
-                            })
-                    })
+                    .then(() => {})
+
                 const web3Prov = new ethers.providers.Web3Provider(
                     window.ethereum
                 )
                 this.provider = web3Prov
-                console.log(this.provider);
-                console.log(this.wallet);
-                
-                
+
+                const wal = web3Prov.getSigner()
+                this.wallet = wal
+                wal.getAddress().then((ans) => {
+                    this.walletAddress = ans
+                    /* Get Balances */
+                    web3Prov.getBalance(ans).then((balBG) => {
+                        this.etherBalance = parseFloat(
+                            ethers.utils.formatEther(balBG)
+                        )
+                    })
+                })
             } catch (error) {
                 console.log(error)
             }
         } else {
             console.log("Error connecting to metamask !!!")
         }
+
+        /* Contracts */
+        this.http
+            .get<any>("http://localhost:3000/lottery-address")
+            .subscribe((ans) => {
+                this.LOTTERY_ADDRESS = ans.result
+            })
+
+        this.http
+            .get<any>("http://localhost:3000/peyment-token-address")
+            .subscribe((ans) => {
+                this.PAYMENT_TOKEN_ADDRESS = ans.result
+            })
     }
 }

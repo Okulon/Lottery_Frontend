@@ -1,1 +1,87 @@
-<p>Heeloo</p>
+<style>
+    .button {
+        background-color: #4caf50;
+        border: none;
+        color: black;
+        padding: 8px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        margin-top: 14px;
+        cursor: pointer;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .button:hover {
+        background-color: #3e8e41;
+    }
+    .pDownSmallTopSpace {
+        margin-top: 18px;
+    }
+</style>
+<div class="text-secondary px-4 py-5 text-center backColGrey divWidth">
+    <div class="py-5">
+        <h1 class="display-8 fw-bold text-black">
+            <p class="">Our Lottery</p>
+            <p class="lead fw-bold">Week 5 project Group 12</p>
+        </h1>
+        <div class="col-lg-6 mx-auto">
+            <div>
+                <p class="lead fw-bold text-black">Connected with:</p>
+                <div>
+                    <p class="fw-bold text-black">
+                        {{ walletAddress }}
+                    </p>
+                </div>
+                <p class="lead fw-bold text-black">
+                    The lottery contract address is:
+                </p>
+                <div>
+                    <p class="fw-bold text-black">
+                        {{ LOTTERY_ADDRESS }}
+                    </p>
+                </div>
+                <p class="lead fw-bold text-black">
+                    The payment token address is:
+                </p>
+                <div>
+                    <p class="fw-bold text-black">
+                        {{ PAYMENT_TOKEN_ADDRESS }}
+                    </p>
+                </div>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">Ether Balance is:</p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            {{ etherBalance }}
+                        </p>
+                    </div>
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">Token Balance is:</p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            <!-- {{ tokenBalance }} -->
+                        </p>
+                    </div>
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">Voting tokens are:</p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            <!-- {{ votingTokens }} -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
