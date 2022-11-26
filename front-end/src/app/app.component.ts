@@ -27,16 +27,13 @@ export class eventsClass {
     styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-    wallet: ethers.Wallet | ethers.providers.JsonRpcSigner | undefined
+    wallet: ethers.providers.JsonRpcSigner | undefined
     walletAddress: string | undefined
-    provider:
-        | ethers.providers.BaseProvider
-        | ethers.providers.Web3Provider
-        | undefined
+    provider: ethers.providers.Web3Provider | undefined
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
 
-    connectMetamask() {
+      /* Connection to metamask (Currently the only option)*/
         if (typeof window.ethereum !== "undefined") {
             try {
                 let accounts: ethers.providers.JsonRpcSigner[]
@@ -50,6 +47,14 @@ export class AppComponent {
                                 this.wallet = accounts[0]
                             })
                     })
+                const web3Prov = new ethers.providers.Web3Provider(
+                    window.ethereum
+                )
+                this.provider = web3Prov
+                console.log(this.provider);
+                console.log(this.wallet);
+                
+                
             } catch (error) {
                 console.log(error)
             }
