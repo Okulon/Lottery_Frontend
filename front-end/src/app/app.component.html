@@ -68,18 +68,185 @@
                             class="pDownSmallTopSpace"
                             style="margin-bottom: 40px"
                         >
-                            <!-- {{ tokenBalance }} -->
+                            {{ tokenBalance }}
                         </p>
                     </div>
                     <div class="card gap-3 text-black fw-bold divBgColor">
-                        <p class="pUpSmallTopSpace">Voting tokens are:</p>
+                        <p class="pUpSmallTopSpace">Prize to withdraw:</p>
                         <p
                             class="pDownSmallTopSpace"
                             style="margin-bottom: 40px"
                         >
-                            <!-- {{ votingTokens }} -->
+                            {{ prizeToWithdraw }}
                         </p>
                     </div>
+                </div>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">Prize pool is:</p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            {{ prizePool }}
+                        </p>
+                    </div>
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">Owner pool is:</p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            {{ ownerPool }}
+                        </p>
+                    </div>
+                </div>
+                <div
+                    *ngIf="timeLeft! > 0"
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center"
+                >
+                    <div class="card gap-3 text-black fw-bold divBgColor">
+                        <p class="pUpSmallTopSpace">
+                            Time left to the end of lottery:
+                        </p>
+                        <p
+                            class="pDownSmallTopSpace"
+                            style="margin-bottom: 40px"
+                        >
+                            {{ timeLeft }} seconds
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center sepLine"
+                >
+                    <p
+                        class="fw-bold text-black pUpSmallTopSpace"
+                        style="margin-top: 28px"
+                    >
+                        Buy token:
+                    </p>
+                    <input
+                        class="pDownSmallTopSpace inpText"
+                        #buyAmount
+                        type="number"
+                        placeholder="Amount of tokens"
+                    />
+                    <button
+                        (click)="buyToken(buyAmount.value)"
+                        type="button"
+                        class="button"
+                    >
+                        buy
+                    </button>
+                </div>
+                <div
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center sepLine"
+                >
+                    <p
+                        class="fw-bold text-black pUpSmallTopSpace"
+                        style="margin-top: 28px"
+                    >
+                        Sell token:
+                    </p>
+                    <input
+                        class="pDownSmallTopSpace inpText"
+                        #sellAmount
+                        type="number"
+                        placeholder="Amount of tokens"
+                    />
+                    <button
+                        (click)="approveToken(sellAmount.value)"
+                        type="button"
+                        class="button"
+                    >
+                        approve
+                    </button>
+                    <button
+                        (click)="sellToken(sellAmount.value)"
+                        type="button"
+                        class="button"
+                    >
+                        sell
+                    </button>
+                </div>
+                <div
+                    *ngIf="isAdmin || prizeToWithdraw! > 0"
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center sepLine"
+                >
+                    <button
+                        *ngIf="isAdmin"
+                        (click)="withdrawAdmin()"
+                        type="button"
+                        class="button"
+                    >
+                        withdraw from owner pool
+                    </button>
+                    <button
+                        *ngIf="prizeToWithdraw! > 0"
+                        (click)="withdrawWinner()"
+                        type="button"
+                        class="button"
+                    >
+                        withdraw prize
+                    </button>
+                </div>
+                <div
+                    *ngIf="!lotteryOpen && isAdmin"
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center sepLine"
+                >
+                    <p
+                        class="fw-bold text-black pUpSmallTopSpace"
+                        style="margin-top: 28px"
+                    >
+                        open lottery:
+                    </p>
+                    <input
+                        class="pDownSmallTopSpace inpText"
+                        #closingDuration
+                        type="number"
+                        min="10"
+                        placeholder="Duration in seconds"
+                    />
+                    <button
+                        (click)="openBets(closingDuration.value)"
+                        type="button"
+                        class="button"
+                    >
+                        open lottery
+                    </button>
+                </div>
+                <div
+                    *ngIf="lotteryOpen"
+                    class="d-grid gap-2 d-sm-flex justify-content-sm-center sepLine"
+                >
+                    <p
+                        class="fw-bold text-black pUpSmallTopSpace"
+                        style="margin-top: 28px"
+                    >
+                        bet:
+                    </p>
+                    <input
+                        class="pDownSmallTopSpace inpText"
+                        #betingAmount
+                        type="number"
+                        min="1"
+                        placeholder="Amount (20% fee)"
+                    />
+                    <button
+                        (click)="betApprove(betingAmount.value)"
+                        type="button"
+                        class="button"
+                    >
+                        approve Amount + 20% fee
+                    </button>
+                    <button
+                        (click)="bet(betingAmount.value)"
+                        type="button"
+                        class="button"
+                    >
+                        bet
+                    </button>
                 </div>
             </div>
         </div>
